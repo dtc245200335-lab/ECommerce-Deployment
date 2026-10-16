@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce - Đề tài 09</title>
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f5f9;
+            font-family: Arial, sans-serif;
+            color: #172033;
+        }
+
+        header {
+            background: #172c56;
+            color: white;
+            padding: 24px 8%;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .product {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 3px 14px #00000012;
+        }
+
+        .price {
+            color: #d52a39;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        .stock { color: #64748b; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>E-Commerce Store</h1>
+        <p>Đề tài 09 - Website thương mại điện tử</p>
+        <a href="/cart" style="color:white;">
+    🛒 Xem giỏ hàng
+</a>
+    </header>
+
+    <main>
+        <h2>Danh sách sản phẩm</h2>
+
+        <div class="products">
+            <% products.forEach(product => { %>
+                <article class="product">
+                    <h3><%= product.name %></h3>
+                    <p><%= product.description %></p>
+                    <p class="price">
+                        <%= Number(product.price).toLocaleString('vi-VN') %> ₫
+                    </p>
+                    <p class="stock">
+                        Tồn kho: <%= product.stock %>
+                    </p>
+                    
+<form action="/cart/add" method="POST">
+    <input
+        type="hidden"
+        name="productId"
+        value="<%= product.id %>"
+    >
+
+    <button type="submit" <%= product.stock <= 0 ? 'disabled' : '' %>>
+        Thêm vào giỏ hàng
+    </button>
+</form>
+
+                </article>
+            <% }) %>
+        </div>
+    </main>
+</body>
+</html>
