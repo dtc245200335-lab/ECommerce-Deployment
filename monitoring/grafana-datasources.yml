@@ -1,7 +1,15 @@
 apiVersion: 1
 
 datasources:
-  - name: Loki
+  - name: E-Commerce Prometheus
+    uid: ecommerce-prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: false
+    editable: true
+  - name: E-Commerce Loki
+    uid: ecommerce-loki
     type: loki
     access: proxy
     url: http://loki:3100
