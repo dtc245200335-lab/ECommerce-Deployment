@@ -2,6 +2,44 @@
 services:
 
 
+  mysql-exporter:
+    image: prom/mysqld-exporter:v0.19.0
+    restart: unless-stopped
+    command:
+      - "--mysqld.address=mysql:3306"
+      - "--mysqld.username=exporter"
+    environment:
+      MYSQLD_EXPORTER_PASSWORD: ${MYSQL_EXPORTER_PASSWORD}
+    depends_on:
+      - mysql
+    networks:
+      - backend
+      - monitoring
+
+  nginx-exporter:
+    image: nginx/nginx-prometheus-exporter:1.5.1
+    restart: unless-stopped
+    command:
+      - "--nginx.scrape-uri=http://nginx:8080/stub_status"
+    depends_on:
+      - nginx
+    networks:
+      - frontend
+      - monitoring
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8081:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+    networks:
+      - monitoring
+
   prometheus:
     image: prom/prometheus:latest
     restart: unless-stopped
