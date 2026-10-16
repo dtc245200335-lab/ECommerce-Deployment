@@ -60,6 +60,19 @@
             display: inline-block;
             margin-top: 20px;
         }
+        .checkout-button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: #172c56;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.checkout-button:hover {
+    background: #284578;
+}
     </style>
 </head>
 
@@ -87,58 +100,70 @@
                         
                     </thead>
 
-                    <tbody>
-                        <% items.forEach(item => { %>
-                            <tr>
-                                <td><%= item.name %></td>
-                                <td>
-                                    <%= Number(item.price).toLocaleString('vi-VN') %> ₫
-                                </td>
-                                
-<td>
-    <form action="/cart/remove" method="POST">
-        <input
-            type="hidden"
-            name="productId"
-            value="<%= item.id %>"
-        >
-        <button type="submit">
-            Xóa
-        </button>
-    </form>
-</td>
+                    
+<tbody>
+    <% items.forEach(item => { %>
+        <tr>
+            <!-- Tên sản phẩm -->
+            <td><%= item.name %></td>
 
-                                
-<td>
-    <form action="/cart/update" method="POST">
-        <input type="hidden"
-               name="productId"
-               value="<%= item.id %>">
+            <!-- Đơn giá -->
+            <td>
+                <%= Number(item.price).toLocaleString('vi-VN') %> ₫
+            </td>
 
-        <input type="number"
-               name="quantity"
-               value="<%= item.quantity %>"
-               min="1"
-               max="<%= item.stock %>"
-               style="width:65px; padding:5px;"
-               required>
+            <!-- Cập nhật số lượng -->
+            <td>
+                <form action="/cart/update" method="POST">
+                    <input
+                        type="hidden"
+                        name="productId"
+                        value="<%= item.id %>"
+                    >
 
-        <button type="submit">Cập nhật</button>
-    </form>
-</td>
+                    <input
+                        type="number"
+                        name="quantity"
+                        value="<%= item.quantity %>"
+                        min="1"
+                        max="<%= item.stock %>"
+                        style="width:65px; padding:5px;"
+                        required
+                    >
 
-                                <td>
-                                    <%= item.subtotal.toLocaleString('vi-VN') %> ₫
-                                </td>
-                            </tr>
-                        <% }) %>
-                    </tbody>
+                    <button type="submit">Cập nhật</button>
+                </form>
+            </td>
+
+            <!-- Thành tiền -->
+            <td>
+                <%= item.subtotal.toLocaleString('vi-VN') %> ₫
+            </td>
+
+            <!-- Xóa sản phẩm -->
+            <td>
+                <form action="/cart/remove" method="POST">
+                    <input
+                        type="hidden"
+                        name="productId"
+                        value="<%= item.id %>"
+                    >
+                    <button type="submit">Xóa</button>
+                </form>
+            </td>
+        </tr>
+    <% }) %>
+</tbody>
+
                 </table>
 
                 <p class="total">
                     Tổng tiền:
                     <%= total.toLocaleString('vi-VN') %> ₫
                 </p>
+                <a href="/checkout" class="checkout-button">
+                    Tiến hành đặt hàng
+                </a>
             <% } %>
 
             <a class="back" href="/">← Tiếp tục mua hàng</a>

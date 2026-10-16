@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt hàng - E-Commerce</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: #f3f5f9;
+            color: #172033;
+        }
+        header {
+            background: #172c56;
+            padding: 24px 8%;
+            color: white;
+        }
+        main {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+        label {
+            display: block;
+            margin: 15px 0 6px;
+            font-weight: bold;
+        }
+        input, textarea {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font: inherit;
+        }
+        button {
+            margin-top: 20px;
+            padding: 13px 22px;
+            background: #172c56;
+            color: white;
+            border: 0;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Thông tin đặt hàng</h1>
+        <p>E-Commerce Store - Đề tài 09</p>
+    </header>
+
+    <main>
+        <h2>Thông tin khách hàng</h2>
+
+        <form action="/checkout" method="POST">
+            <label for="customerName">Họ và tên</label>
+            <input id="customerName" type="text"
+                   name="customerName" maxlength="100" required>
+
+            <label for="customerPhone">Số điện thoại</label>
+            <input id="customerPhone" type="tel"
+                   name="customerPhone" maxlength="20" required>
+
+            <label for="customerAddress">Địa chỉ nhận hàng</label>
+            <textarea id="customerAddress"
+                      name="customerAddress" rows="3"
+                      maxlength="1000" required></textarea>
+
+            <button type="submit">Xác nhận đặt hàng</button>
+        </form>
+
+        <p><a href="/cart">← Quay lại giỏ hàng</a></p>
+    </main>
+</body>
+</html>
